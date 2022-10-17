@@ -1,0 +1,10 @@
+[package]
+name = "diesel-async-bb8-test"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+diesel = { version = "2.0.0", features = ["postgres","chrono", "serde_json"]}
+diesel-async = { version = "0.1.0", features = ["postgres", "bb8"] }
+bb8 = "0.8"
+tokio = {version = "1.21.2", features = ["full"] }

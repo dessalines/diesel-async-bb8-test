@@ -2,8 +2,8 @@
 extern crate diesel;
 
 use diesel::RunQueryDsl;
-use diesel_async::pooled_connection::{bb8::Pool, AsyncDieselConnectionManager};
 use diesel_async::pg::AsyncPgConnection;
+use diesel_async::pooled_connection::{bb8::Pool, AsyncDieselConnectionManager};
 
 table! {
   person (id) {
@@ -16,9 +16,8 @@ pub type DbPool = Pool<AsyncPgConnection>;
 
 #[tokio::main]
 async fn main() {
-    // let mut conn = pool.get().await.unwrap();
-  let config = AsyncDieselConnectionManager::<AsyncPgConnection>::new("test");
-  let pool = Pool::builder().build(config).await.unwrap();
-  let mut conn = pool.get().await.unwrap();
-  let output = diesel::delete(person::table).execute(&mut conn).unwrap();
+    let config = AsyncDieselConnectionManager::<AsyncPgConnection>::new("test");
+    let pool = Pool::builder().build(config).await.unwrap();
+    let mut conn = pool.get().await.unwrap();
+    let output = diesel::delete(person::table).execute(&mut conn).unwrap();
 }
